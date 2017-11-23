@@ -5,7 +5,7 @@ var fs       = require('fs');
 var path     = require('path');
 var mime	= require('mime');
 
-describe('gulp-img64', function() {
+describe('gulp-file64', function() {
 	describe('in buffer mode', function() {
 
 		it('should replace images in DOM with base64 data', function(done) {

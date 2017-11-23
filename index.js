@@ -18,31 +18,13 @@ module.exports = function() {
 		}
 
 		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-img64', 'Streaming not supported'));
+			this.emit('error', new gutil.PluginError('gulp-file64', 'Streaming not supported'));
 			return callback();
 		}
 
 		if (file.isBuffer()) {
-			var $ = cheerio.load(String(file.contents));
-			$('img').each(function() {
-				if (this.attr('src')) {
-					var ssrc = this.attr('src');
-					var isdata = ssrc.indexOf("data");
-					if (ssrc != "" && typeof ssrc != 'undefined' && isdata !== 0) {
-						var spath = path.join(file.base, ssrc);
-						var mtype = mime.lookup(spath);
-						if (mtype != 'application/octet-stream') {
-							console.log(mtype);
-							var sfile = fs.readFileSync(spath);
-							var simg64 = new Buffer(sfile).toString('base64');
-							this.attr('src', 'data:' + mtype + ';base64,' + simg64);
-						}
-					}
-				}
-			});
-			var output = $.html();
-
-			file.contents = new Buffer(output);
+			var simg64 = new Buffer(String(file.contents)).toString('base64');
+			file.contents = new Buffer(simg64);
 
 			return callback(null, file);
 		}
