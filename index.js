@@ -23,7 +23,7 @@ module.exports = function() {
 		}
 
 		if (file.isBuffer()) {
-			var simg64 = new Buffer(String(file.contents).replace('../css/app.css','').replace(/&lt;#/g, '<#').replace(/&gt;</g, '><').replace(/&lt;\/\#/g, '</#').replace(/&#x3D;/g, '=').replace(/&quot;/g, '"')).toString('base64');
+			var simg64 = new Buffer(String(file.contents).replace('../css/app.css','').replace(/&lt;#/g, '<#').replace(/&gt;</g, '><').replace(/&gt;/g, '>').replace(/&lt;\/\#/g, '</#').replace(/&#x3D;/g, '=').replace(/&quot;/g, '"')).toString('base64');
 			file.contents = new Buffer(simg64);
 
 			return callback(null, file);
